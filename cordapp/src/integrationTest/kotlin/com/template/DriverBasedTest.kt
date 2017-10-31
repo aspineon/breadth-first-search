@@ -1,8 +1,6 @@
 package com.template
 
 import net.corda.core.utilities.getOrThrow
-import net.corda.node.services.transactions.SimpleNotaryService
-import net.corda.nodeapi.internal.ServiceInfo
 import net.corda.testing.DUMMY_BANK_A
 import net.corda.testing.DUMMY_BANK_B
 import net.corda.testing.DUMMY_NOTARY
@@ -17,7 +15,7 @@ class DriverBasedTest {
             // This starts three nodes simultaneously with startNode, which returns a future that completes when the node
             // has completed startup. Then these are all resolved with getOrThrow which returns the NodeHandle list.
             val (notaryHandle, nodeAHandle, nodeBHandle) = listOf(
-                    startNode(providedName = DUMMY_NOTARY.name, advertisedServices = setOf(ServiceInfo(SimpleNotaryService.type))),
+                    startNotaryNode(providedName = DUMMY_NOTARY.name),
                     startNode(providedName = DUMMY_BANK_A.name),
                     startNode(providedName = DUMMY_BANK_B.name)
             ).map { it.getOrThrow() }
